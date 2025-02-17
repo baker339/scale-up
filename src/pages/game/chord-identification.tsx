@@ -4,6 +4,12 @@ import { useRouter } from 'next/router';
 import Vex from 'vexflow';
 import { useProgressStore } from '@/store/useProgressStore';
 
+interface Chord {
+    name: string;
+    notes: string[];
+    clef: string;
+}
+
 const chordData = {
     beginner: [
         { name: 'C Major', notes: ['c/4', 'e/4', 'g/4'], clef: 'treble' },
@@ -77,7 +83,7 @@ export default function ChordIdentification() {
     }, []);
 
     // ✅ Fix: Ensure canvas does not overflow the white container
-    const renderChord = (chord, clef) => {
+    const renderChord = (chord: Chord, clef: string) => {
         const div = document.getElementById('notation');
         if (div) div.innerHTML = '';
 
@@ -107,7 +113,7 @@ export default function ChordIdentification() {
     };
 
     // ✅ Game win conditions: Streak of 10 and all chords identified
-    const checkAnswer = (selectedChord) => {
+    const checkAnswer = (selectedChord: string) => {
         if (lessonComplete) return;
 
         const isCorrect = selectedChord === currentChord.name;
@@ -131,9 +137,7 @@ export default function ChordIdentification() {
 
     // ✅ Fix: Get the correct available chords
     const getAvailableChords = () => {
-        return difficulty === 'advanced'
-            ? [...chordData.advanced.treble, ...chordData.advanced.bass]
-            : chordData[difficulty];
+        return chordData[difficulty];
     };
 
     const handleLessonComplete = () => {
