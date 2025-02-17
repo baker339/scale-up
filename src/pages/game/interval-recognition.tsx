@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useGameStore } from '../../store/useGameStore';
+import { useGameStore } from '@/store/useGameStore';
 import { useProgressStore } from '@/store/useProgressStore';
 import { useRouter } from 'next/router';
 import Vex from 'vexflow';
@@ -18,7 +18,7 @@ const intervals = [
     { name: 'Major 6th', ratio: 5 / 3 },
     { name: 'Minor 7th', ratio: 9 / 5 },
     { name: 'Major 7th', ratio: 15 / 8 },
-    { name: 'Octave', ratio: 2 / 1 },
+    { name: 'Octave', ratio: 2 },
 ];
 
 // Define subsets for each difficulty.

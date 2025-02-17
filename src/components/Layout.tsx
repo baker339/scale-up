@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { useProgressStore } from '../store/useProgressStore';
-import { lessons } from '../data/lessons';
+import { useProgressStore } from '@/store/useProgressStore';
+import { lessons } from '@/data/lessons';
 import Image from "next/image";
 
 interface LayoutProps {

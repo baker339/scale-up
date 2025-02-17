@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { useProgressStore } from '../../store/useProgressStore';
-import { useGameStore } from '../../store/useGameStore';
+import { useProgressStore } from '@/store/useProgressStore';
+import { useGameStore } from '@/store/useGameStore';
 
 export default function ScalesLesson() {
     const { completeLesson } = useProgressStore();
@@ -63,9 +63,9 @@ export default function ScalesLesson() {
                     dangerouslySetInnerHTML={{ __html: currentContent.html }}
                 />
                 {/* Diagram placeholder */}
-                <div className="flex justify-center mb-6">
-                    <img src="/scales-diagram.png" alt="Scales Diagram" className="w-64 rounded-lg shadow-lg" />
-                </div>
+                {/*<div className="flex justify-center mb-6">*/}
+                {/*    <img src="/scales-diagram.png" alt="Scales Diagram" className="w-64 rounded-lg shadow-lg" />*/}
+                {/*</div>*/}
                 <div className="flex flex-col md:flex-row gap-4 justify-center">
                     <Link href="/game/scales-keys">
                         <button className="bg-neonMagenta px-8 py-3 rounded-lg shadow-lg transition transform hover:scale-105">

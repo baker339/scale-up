@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useGameStore } from '../../store/useGameStore';
+import { useGameStore } from '@/store/useGameStore';
 import Link from 'next/link';
 import Flow from 'vexflow';
 

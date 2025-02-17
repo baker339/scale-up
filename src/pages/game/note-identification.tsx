@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useGameStore } from '../../store/useGameStore';
+import { useGameStore } from '@/store/useGameStore';
 import { useRouter } from 'next/router';
 import Vex from 'vexflow';
 import {useProgressStore} from "@/store/useProgressStore";

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { useProgressStore } from '../../store/useProgressStore';
-import { useGameStore } from '../../store/useGameStore';
+import { useProgressStore } from '@/store/useProgressStore';
+import { useGameStore } from '@/store/useGameStore';
 
 export default function NotationLesson() {
     const { completeLesson } = useProgressStore();
@@ -62,9 +62,9 @@ export default function NotationLesson() {
                 dangerouslySetInnerHTML={{ __html: currentContent.html }}
             />
             {/* Diagram placeholder */}
-            <div className="flex justify-center mb-6">
-                <img src="/notation-diagram.png" alt="Notation Diagram" className="w-64 rounded-lg shadow-lg" />
-            </div>
+            {/*<div className="flex justify-center mb-6">*/}
+            {/*    <img src="/notation-diagram.png" alt="Notation Diagram" className="w-64 rounded-lg shadow-lg" />*/}
+            {/*</div>*/}
             <div className="flex flex-col md:flex-row gap-4 justify-center">
                 <Link href="/game/notation-identification">
                     <button className="bg-neonMagenta px-8 py-3 rounded-lg shadow-lg transition transform hover:scale-105">
