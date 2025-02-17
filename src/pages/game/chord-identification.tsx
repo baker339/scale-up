@@ -54,8 +54,8 @@ export default function ChordIdentification() {
 
     // ✅ Fix: Safe chord generation, wrapped in `useCallback` for useEffect()
     const generateChord = useCallback(() => {
-        let availableChords;
-        let clef = 'treble';
+        const availableChords = chordData[difficulty];
+        // const clef = 'treble';
 
         // if (difficulty === 'advanced') {
         //     const isBassClef = Math.random() > 0.5;
@@ -65,11 +65,11 @@ export default function ChordIdentification() {
         //     availableChords = chordData[difficulty];
         // }
 
-        availableChords = chordData[difficulty];
+        // availableChords = chordData[difficulty];
 
         const randomChord = availableChords[Math.floor(Math.random() * availableChords.length)];
         setCurrentChord(randomChord);
-        renderChord(randomChord, clef);
+        renderChord(randomChord, randomChord.clef);
     }, [difficulty]);
 
     useEffect(() => {
