@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useGameStore } from '../../store/useGameStore';
 import { useRouter } from 'next/router';
 import Vex from 'vexflow';
-import {useProgressStore} from "@/store/useProgressStore";
+import { useProgressStore } from '@/store/useProgressStore';
 
 const chordData = {
     beginner: [
@@ -35,61 +35,48 @@ export default function ChordIdentification() {
     const { completeLesson } = useProgressStore();
     const router = useRouter();
 
-    const [currentChord, setCurrentChord] = useState<{
-        name: string;
-        notes: string[];
-        clef: string; }[] |
-        {
-            name: string;
-            notes: string[];
-            clef: string; }[] |
-        {
-            treble:
-                {
-                    name: string;
-                    notes: string[];
-                    clef: string;
-                }[];
-            bass:
-                {
-                    name: string;
-                    notes: string[];
-                    clef: string;
-                }[];
-        }>(chordData[difficulty][0]);
-    // const [currentClef, setCurrentClef] = useState('treble');
+    // ✅ Fix: Correctly initialize state based on difficulty level
+    const [currentChord, setCurrentChord] = useState(
+        difficulty === 'advanced'
+            ? chordData.advanced.treble[0] // Default to first treble chord in advanced mode
+            : chordData[difficulty][0] // Safe for beginner & intermediate
+    );
+
     const [feedback, setFeedback] = useState('');
     const [streak, setStreak] = useState(0);
     const [correctChoices, setCorrectChoices] = useState(new Set<string>());
     const [lessonComplete, setLessonComplete] = useState(false);
 
-    const generateChord = () => {
-        let availableChords = chordData[difficulty];
+    // ✅ Fix: Safe chord generation, wrapped in `useCallback` for useEffect()
+    const generateChord = useCallback(() => {
+        let availableChords;
         let clef = 'treble';
 
         if (difficulty === 'advanced') {
             const isBassClef = Math.random() > 0.5;
             clef = isBassClef ? 'bass' : 'treble';
             availableChords = chordData.advanced[clef];
+        } else {
+            availableChords = chordData[difficulty];
         }
 
         const randomChord = availableChords[Math.floor(Math.random() * availableChords.length)];
         setCurrentChord(randomChord);
-        // setCurrentClef(clef);
         renderChord(randomChord, clef);
-    };
+    }, [difficulty]);
 
     useEffect(() => {
         generateChord();
     }, []);
 
+    // ✅ Fix: Ensure canvas does not overflow the white container
     const renderChord = (chord, clef) => {
         const div = document.getElementById('notation');
         if (div) div.innerHTML = '';
 
         const renderer = new Vex.Flow.Renderer(div, Vex.Flow.Renderer.Backends.SVG);
 
-        // Adjust canvas height for large chords
+        // Adjust canvas height based on lowest note
         const lowestNote = chord.notes[0];
         const lowestPitch = parseInt(lowestNote.split('/')[1]);
         const canvasHeight = lowestPitch < 4 ? 190 : 160;
@@ -112,6 +99,7 @@ export default function ChordIdentification() {
         voice.draw(context, stave);
     };
 
+    // ✅ Game win conditions: Streak of 10 and all chords identified
     const checkAnswer = (selectedChord) => {
         if (lessonComplete) return;
 
@@ -134,6 +122,7 @@ export default function ChordIdentification() {
         }, 1000);
     };
 
+    // ✅ Fix: Get the correct available chords
     const getAvailableChords = () => {
         return difficulty === 'advanced'
             ? [...chordData.advanced.treble, ...chordData.advanced.bass]
@@ -142,8 +131,8 @@ export default function ChordIdentification() {
 
     const handleLessonComplete = () => {
         completeLesson(4);
-        router.push('/curriculum')
-    }
+        router.push('/curriculum');
+    };
 
     return (
         <div className="flex flex-col items-center justify-center text-center px-6 bg-darkPurple text-white">
@@ -172,7 +161,7 @@ export default function ChordIdentification() {
                         {"Congratulations! You've completed this lesson."}
                     </p>
                     <button
-                        className="mt-4 bg-green-600 px-8 py-3 rounded-lg shadow-lg hover:bg-green-500 transition"
+                        className="mt-4 bg-green-600 px-8 py-3 rounded-lg shadow-lg hover:bg-green-500 transition shimmer-effect"
                         onClick={handleLessonComplete}
                     >
                         Complete Lesson & Return to Curriculum
