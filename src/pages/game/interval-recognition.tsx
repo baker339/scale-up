@@ -108,7 +108,7 @@ export default function IntervalRecognition() {
         stave.addClef('treble').setContext(context).draw();
 
         const rootNote = 'c/4'; // Fixed root note.
-        // @ts-expect-error
+        // @ts-expect-error error expected for intervalObj.name
         const secondNoteRaw = intervalMapping[intervalObj.name] || 'g4';
         const secondNote = formatNote(secondNoteRaw);
 
