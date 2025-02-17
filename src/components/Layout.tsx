@@ -28,7 +28,7 @@ export default function Layout({ children }: LayoutProps) {
             {/* Header */}
             <header className="flex items-center justify-between p-4 border-b border-gray-800">
                 <Link href="/" className="flex items-center">
-                    <Image src={logoSrc} alt="ScaleUp Logo" width={40} height={40} priority />
+                    <Image src={logoSrc} alt="ScaleUp Logo" width={125} height={125} priority />
                 </Link>
                 <nav className="flex items-center gap-6">
                     {/*<span className="text-lg text-gray-300">Level: <span className="font-bold text-neonBlue">{difficulty}</span></span>*/}
