@@ -28,9 +28,9 @@ const lessonContent = {
     `,
         renderDiagram: (container: HTMLElement) => {
             // Render a basic diagram with a single note (middle C) on a Treble Clef.
-            const VF = window.Vex ? window.Vex.Flow : Flow;
+            const VF = Flow;
             container.innerHTML = "";
-            const renderer = new VF.Renderer(container, VF.Renderer.Backends.SVG);
+            const renderer = new VF.Renderer(container as HTMLDivElement, VF.Renderer.Backends.SVG);
             renderer.resize(280, 120);
             const context = renderer.getContext();
             // Create a stave positioned to center the diagram.
@@ -60,9 +60,9 @@ const lessonContent = {
       </div>
     `,
         renderDiagram: (container: HTMLElement) => {
-            const VF = window.Vex ? window.Vex.Flow : Flow;
+            const VF = Flow;
             container.innerHTML = "";
-            const renderer = new VF.Renderer(container, VF.Renderer.Backends.SVG);
+            const renderer = new VF.Renderer(container as HTMLDivElement, VF.Renderer.Backends.SVG);
             renderer.resize(280, 120);
             const context = renderer.getContext();
             const stave = new VF.Stave(10, 20, 260);
@@ -92,9 +92,9 @@ const lessonContent = {
       </div>
     `,
         renderDiagram: (container: HTMLElement) => {
-            const VF = window.Vex ? window.Vex.Flow : Flow;
+            const VF = Flow;
             container.innerHTML = "";
-            const renderer = new VF.Renderer(container, VF.Renderer.Backends.SVG);
+            const renderer = new VF.Renderer(container as HTMLDivElement, VF.Renderer.Backends.SVG);
             renderer.resize(280, 120);
             const context = renderer.getContext();
             // Lower the stave to provide space for ledger lines.

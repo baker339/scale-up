@@ -88,7 +88,7 @@ export default function IntervalRecognition() {
         // Play the interval sounds.
         playIntervalSound(randomInterval);
         renderInterval(randomInterval);
-    }, [difficulty]);
+    }, [difficulty, availableIntervals]);
 
     useEffect(() => {
         generateInterval();

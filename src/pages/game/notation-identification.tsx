@@ -51,7 +51,7 @@ export default function NotationIdentification() {
         const randomSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
         setCurrentSymbol(randomSymbol);
         renderSymbol(randomSymbol);
-    }, [difficulty]);
+    }, [difficulty, availableSymbols]);
 
     useEffect(() => {
         generateSymbol();
@@ -75,7 +75,7 @@ export default function NotationIdentification() {
             duration: symbol.duration,
         });
 
-        staveNote.setAttribute("isRest", true);
+        staveNote.setAttribute("isRest", "true");
 
         const beats = getBeatsForDuration(symbol.duration);
         const voice = new VF.Voice({ num_beats: beats, beat_value: 4 });
