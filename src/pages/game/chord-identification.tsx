@@ -35,7 +35,28 @@ export default function ChordIdentification() {
     const { completeLesson } = useProgressStore();
     const router = useRouter();
 
-    const [currentChord, setCurrentChord] = useState(chordData[difficulty][0]);
+    const [currentChord, setCurrentChord] = useState<{
+        name: string;
+        notes: string[];
+        clef: string; }[] |
+        {
+            name: string;
+            notes: string[];
+            clef: string; }[] |
+        {
+            treble:
+                {
+                    name: string;
+                    notes: string[];
+                    clef: string;
+                }[];
+            bass:
+                {
+                    name: string;
+                    notes: string[];
+                    clef: string;
+                }[];
+        }>(chordData[difficulty][0]);
     // const [currentClef, setCurrentClef] = useState('treble');
     const [feedback, setFeedback] = useState('');
     const [streak, setStreak] = useState(0);
