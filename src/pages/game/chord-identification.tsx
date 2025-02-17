@@ -16,18 +16,27 @@ const chordData = {
         { name: 'B Diminished', notes: ['b/3', 'd/4', 'f/4'], clef: 'treble' },
         { name: 'E Augmented', notes: ['e/3', 'g#/3', 'c/4'], clef: 'treble' },
     ],
-    advanced: {
-        treble: [
-            { name: 'C Major 7', notes: ['c/3', 'e/3', 'g/3', 'b/3'], clef: 'treble' },
-            { name: 'G Dominant 7', notes: ['g/3', 'b/3', 'd/4', 'f/4'], clef: 'treble' },
-            { name: 'F Minor 7', notes: ['f/3', 'ab/3', 'c/4', 'eb/4'], clef: 'treble' },
-        ],
-        bass: [
-            { name: 'F Major', notes: ['f/2', 'a/2', 'c/3'], clef: 'bass' },
-            { name: 'G Minor', notes: ['g/2', 'bb/2', 'd/3'], clef: 'bass' },
-            { name: 'C Major 7', notes: ['c/2', 'e/2', 'g/2', 'b/2'], clef: 'bass' },
-        ],
-    },
+    // advanced: {
+    //     treble: [
+    //         { name: 'C Major 7', notes: ['c/3', 'e/3', 'g/3', 'b/3'], clef: 'treble' },
+    //         { name: 'G Dominant 7', notes: ['g/3', 'b/3', 'd/4', 'f/4'], clef: 'treble' },
+    //         { name: 'F Minor 7', notes: ['f/3', 'ab/3', 'c/4', 'eb/4'], clef: 'treble' },
+    //     ],
+    //     bass: [
+    //         { name: 'F Major', notes: ['f/2', 'a/2', 'c/3'], clef: 'bass' },
+    //         { name: 'G Minor', notes: ['g/2', 'bb/2', 'd/3'], clef: 'bass' },
+    //         { name: 'C Major 7', notes: ['c/2', 'e/2', 'g/2', 'b/2'], clef: 'bass' },
+    //     ],
+    // },
+    advanced: [
+        { name: 'C Major 7', notes: ['c/3', 'e/3', 'g/3', 'b/3'], clef: 'treble' },
+        { name: 'G Dominant 7', notes: ['g/3', 'b/3', 'd/4', 'f/4'], clef: 'treble' },
+        { name: 'F Minor 7', notes: ['f/3', 'ab/3', 'c/4', 'eb/4'], clef: 'treble' },
+
+        { name: 'F Major', notes: ['f/2', 'a/2', 'c/3'], clef: 'bass' },
+        { name: 'G Minor', notes: ['g/2', 'bb/2', 'd/3'], clef: 'bass' },
+        { name: 'C Major 7', notes: ['c/2', 'e/2', 'g/2', 'b/2'], clef: 'bass' },
+    ],
 };
 
 export default function ChordIdentification() {
@@ -36,11 +45,7 @@ export default function ChordIdentification() {
     const router = useRouter();
 
     // ✅ Fix: Correctly initialize state based on difficulty level
-    const [currentChord, setCurrentChord] = useState(
-        difficulty === 'advanced'
-            ? chordData.advanced.treble[0] // Default to first treble chord in advanced mode
-            : chordData[difficulty][0] // Safe for beginner & intermediate
-    );
+    const [currentChord, setCurrentChord] = useState( chordData[difficulty][0]);
 
     const [feedback, setFeedback] = useState('');
     const [streak, setStreak] = useState(0);
@@ -52,13 +57,15 @@ export default function ChordIdentification() {
         let availableChords;
         let clef = 'treble';
 
-        if (difficulty === 'advanced') {
-            const isBassClef = Math.random() > 0.5;
-            clef = isBassClef ? 'bass' : 'treble';
-            availableChords = chordData.advanced[clef];
-        } else {
-            availableChords = chordData[difficulty];
-        }
+        // if (difficulty === 'advanced') {
+        //     const isBassClef = Math.random() > 0.5;
+        //     clef = isBassClef ? 'bass' : 'treble';
+        //     availableChords = chordData.advanced[clef];
+        // } else {
+        //     availableChords = chordData[difficulty];
+        // }
+
+        availableChords = chordData[difficulty];
 
         const randomChord = availableChords[Math.floor(Math.random() * availableChords.length)];
         setCurrentChord(randomChord);
