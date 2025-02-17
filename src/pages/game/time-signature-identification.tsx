@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import { useGameStore } from '@/store/useGameStore';
 import { useRouter } from 'next/router';
 import Vex from 'vexflow';
@@ -49,21 +49,22 @@ export default function TimeSignatureQuiz() {
     const [correctChoices, setCorrectChoices] = useState(new Set<string>());
     const [lessonComplete, setLessonComplete] = useState(false);
 
-    useEffect(() => {
-        generatePattern();
-    }, [difficulty]);
-
-    const generatePattern = () => {
+    const generatePattern = useCallback(() => {
         const randomPattern = availablePatterns[Math.floor(Math.random() * availablePatterns.length)];
         setCurrentPattern(randomPattern);
         renderPattern(randomPattern);
-    };
+    }, [difficulty]);
+
+    useEffect(() => {
+        generatePattern();
+    }, [generatePattern]);
 
     const renderPattern = (pattern: { timeSignature: string; notes: {keys: string[], duration: string }[] }) => {
         const div = document.getElementById("notation");
+        if (!div) return;
         if (div) div.innerHTML = "";
 
-        const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+        const renderer = new VF.Renderer(div as HTMLDivElement, VF.Renderer.Backends.SVG);
         renderer.resize(300, 150);
         const context = renderer.getContext();
 

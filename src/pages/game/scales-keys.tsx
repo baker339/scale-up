@@ -81,7 +81,7 @@ function renderKeySignature(question: { signature: string }, container: HTMLElem
 function renderScale(scaleObj: { notes: string[] }, container: HTMLElement) {
     container.innerHTML = "";
     const VF = Vex.Flow;
-    const renderer = new VF.Renderer(container, VF.Renderer.Backends.SVG);
+    const renderer = new VF.Renderer(container as HTMLDivElement, VF.Renderer.Backends.SVG);
     renderer.resize(250, 120);
     const context = renderer.getContext();
     const stave = new VF.Stave(10, 20, 220);

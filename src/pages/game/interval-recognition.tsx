@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import { useGameStore } from '@/store/useGameStore';
 import { useProgressStore } from '@/store/useProgressStore';
 import { useRouter } from 'next/router';
@@ -82,25 +82,25 @@ export default function IntervalRecognition() {
     const [correctChoices, setCorrectChoices] = useState(new Set<string>());
     const [lessonComplete, setLessonComplete] = useState(false);
 
-    useEffect(() => {
-        generateInterval();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const generateInterval = async () => {
+    const generateInterval = useCallback( async() => {
         const randomInterval = availableIntervals[Math.floor(Math.random() * availableIntervals.length)];
         setCurrentInterval(randomInterval);
         // Play the interval sounds.
         playIntervalSound(randomInterval);
         renderInterval(randomInterval);
-    };
+    }, [difficulty]);
+
+    useEffect(() => {
+        generateInterval();
+    }, [generateInterval]);
 
     const renderInterval = (intervalObj: { name: string; ratio: number }) => {
         const div = document.getElementById('notation');
+        if(!div) return;
         if (div) div.innerHTML = '';
 
         const VF = Vex.Flow;
-        const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+        const renderer = new VF.Renderer(div as HTMLDivElement, VF.Renderer.Backends.SVG);
         renderer.resize(300, 150);
         const context = renderer.getContext();
 
