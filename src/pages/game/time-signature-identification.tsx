@@ -59,7 +59,7 @@ export default function TimeSignatureQuiz() {
         renderPattern(randomPattern);
     };
 
-    const renderPattern = (pattern: { timeSignature: string; notes: any[] }) => {
+    const renderPattern = (pattern: { timeSignature: string; notes: {keys: string[], duration: string }[] }) => {
         const div = document.getElementById("notation");
         if (div) div.innerHTML = "";
 
@@ -137,7 +137,7 @@ export default function TimeSignatureQuiz() {
             {lessonComplete && (
                 <div className="mt-6">
                     <p className="text-xl text-green-500 font-bold">
-                        Congratulations! You've completed this lesson.
+                        {"Congratulations! You've completed this lesson."}
                     </p>
                     <button
                         className="mt-4 bg-green-600 px-8 py-3 rounded-lg shadow-lg hover:bg-green-500 transition"

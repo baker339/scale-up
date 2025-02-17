@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
-import Layout from '../../components/Layout';
 import { useGameStore } from '../../store/useGameStore';
 import Link from 'next/link';
-import {useProgressStore} from "@/store/useProgressStore";
+import Flow from 'vexflow';
 
 // Define structured lesson content for each difficulty level.
 const lessonContent = {
@@ -29,7 +28,7 @@ const lessonContent = {
     `,
         renderDiagram: (container: HTMLElement) => {
             // Render a basic diagram with a single note (middle C) on a Treble Clef.
-            const VF = window.Vex ? window.Vex.Flow : require("vexflow").Flow;
+            const VF = window.Vex ? window.Vex.Flow : Flow;
             container.innerHTML = "";
             const renderer = new VF.Renderer(container, VF.Renderer.Backends.SVG);
             renderer.resize(280, 120);
@@ -61,7 +60,7 @@ const lessonContent = {
       </div>
     `,
         renderDiagram: (container: HTMLElement) => {
-            const VF = window.Vex ? window.Vex.Flow : require("vexflow").Flow;
+            const VF = window.Vex ? window.Vex.Flow : Flow;
             container.innerHTML = "";
             const renderer = new VF.Renderer(container, VF.Renderer.Backends.SVG);
             renderer.resize(280, 120);
@@ -93,7 +92,7 @@ const lessonContent = {
       </div>
     `,
         renderDiagram: (container: HTMLElement) => {
-            const VF = window.Vex ? window.Vex.Flow : require("vexflow").Flow;
+            const VF = window.Vex ? window.Vex.Flow : Flow;
             container.innerHTML = "";
             const renderer = new VF.Renderer(container, VF.Renderer.Backends.SVG);
             renderer.resize(280, 120);
@@ -113,7 +112,6 @@ const lessonContent = {
 
 export default function NotesLesson() {
     const { difficulty } = useGameStore();
-    const { completeLesson } = useProgressStore();
     const content = lessonContent[difficulty] || lessonContent.beginner;
     const containerRef = useRef<HTMLDivElement>(null);
 

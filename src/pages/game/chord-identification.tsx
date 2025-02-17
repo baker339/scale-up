@@ -36,15 +36,11 @@ export default function ChordIdentification() {
     const router = useRouter();
 
     const [currentChord, setCurrentChord] = useState(chordData[difficulty][0]);
-    const [currentClef, setCurrentClef] = useState('treble');
+    // const [currentClef, setCurrentClef] = useState('treble');
     const [feedback, setFeedback] = useState('');
     const [streak, setStreak] = useState(0);
     const [correctChoices, setCorrectChoices] = useState(new Set<string>());
     const [lessonComplete, setLessonComplete] = useState(false);
-
-    useEffect(() => {
-        generateChord();
-    }, []);
 
     const generateChord = () => {
         let availableChords = chordData[difficulty];
@@ -58,9 +54,13 @@ export default function ChordIdentification() {
 
         const randomChord = availableChords[Math.floor(Math.random() * availableChords.length)];
         setCurrentChord(randomChord);
-        setCurrentClef(clef);
+        // setCurrentClef(clef);
         renderChord(randomChord, clef);
     };
+
+    useEffect(() => {
+        generateChord();
+    }, []);
 
     const renderChord = (chord, clef) => {
         const div = document.getElementById('notation');
@@ -148,7 +148,7 @@ export default function ChordIdentification() {
             {lessonComplete && (
                 <div className="mt-6">
                     <p className="text-xl text-green-500 font-bold">
-                        Congratulations! You've completed this lesson.
+                        {"Congratulations! You've completed this lesson."}
                     </p>
                     <button
                         className="mt-4 bg-green-600 px-8 py-3 rounded-lg shadow-lg hover:bg-green-500 transition"

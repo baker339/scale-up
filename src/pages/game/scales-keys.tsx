@@ -41,9 +41,9 @@ const keyData = {
 // Helper to merge scales and keys into one question set
 function getAvailableQuestions(difficulty: string) {
     const scaleQuestions =
-        scalesData[difficulty]?.map((q: any) => ({ ...q, type: 'scale' })) || [];
+        scalesData[difficulty]?.map((q: {name: string, notes: string[]}) => ({ ...q, type: 'scale' })) || [];
     const keyQuestions =
-        keyData[difficulty]?.map((q: any) => ({ ...q, type: 'key' })) || [];
+        keyData[difficulty]?.map((q: {name: string, signature: string}) => ({ ...q, type: 'key' })) || [];
     return [...scaleQuestions, ...keyQuestions];
 }
 
@@ -107,7 +107,7 @@ export default function ScalesKeysGame() {
     const router = useRouter();
     const availableQuestions = getAvailableQuestions(difficulty);
 
-    const [currentQuestion, setCurrentQuestion] = useState<any>(availableQuestions[0]);
+    const [currentQuestion, setCurrentQuestion] = useState(availableQuestions[0]);
     const [feedback, setFeedback] = useState('');
     const [streak, setStreak] = useState(0);
     const [correctChoices, setCorrectChoices] = useState(new Set<string>());
@@ -153,8 +153,8 @@ export default function ScalesKeysGame() {
 
     const answerOptions =
         currentQuestion?.type === 'scale'
-            ? scalesData[difficulty].map((q: any) => q.name)
-            : keyData[difficulty].map((q: any) => q.name);
+            ? scalesData[difficulty].map((q: {name: string, notes: string[]}) => q.name)
+            : keyData[difficulty].map((q: {name: string, signature: string}) => q.name);
 
     const handleLessonComplete = () => {
         completeLesson(3);
@@ -187,7 +187,7 @@ export default function ScalesKeysGame() {
             {lessonComplete && (
                 <div className="mt-6">
                     <p className="text-xl text-green-500 font-bold">
-                        Congratulations! You've completed this lesson.
+                        {"Congratulations! You've completed this lesson."}
                     </p>
                     <button
                         className="mt-4 bg-green-600 px-8 py-3 rounded-lg shadow-lg hover:bg-green-500 transition"

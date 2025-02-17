@@ -173,7 +173,7 @@ export default function IntervalRecognition() {
             {lessonComplete && (
                 <div className="mt-6">
                     <p className="text-xl text-green-500 font-bold">
-                        Congratulations! You've completed this lesson.
+                        {"Congratulations! You've completed this lesson."}
                     </p>
                     <button
                         className="mt-4 bg-green-600 px-8 py-3 rounded-lg shadow-lg hover:bg-green-500 transition"

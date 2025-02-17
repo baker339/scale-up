@@ -1,9 +1,8 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useProgressStore } from '../store/useProgressStore';
 import { lessons } from '../data/lessons';
-import {useGameStore} from "@/store/useGameStore";
+import Image from "next/image";
 
 interface LayoutProps {
     children: ReactNode;
@@ -11,8 +10,6 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
     const { currentLesson } = useProgressStore();
-    const { difficulty } = useGameStore();
-    const router = useRouter();
 
     // Find the current lesson object by id.
     const currentLessonObj = lessons.find((lesson) => lesson.id === currentLesson);
@@ -31,7 +28,7 @@ export default function Layout({ children }: LayoutProps) {
             {/* Header */}
             <header className="flex items-center justify-between p-4 border-b border-gray-800">
                 <Link href="/" className="flex items-center">
-                    <img src={logoSrc} alt="ScaleUp Logo" className="h-10 w-auto" />
+                    <Image src={logoSrc} alt="ScaleUp Logo" width={40} height={40} priority />
                 </Link>
                 <nav className="flex items-center gap-6">
                     {/*<span className="text-lg text-gray-300">Level: <span className="font-bold text-neonBlue">{difficulty}</span></span>*/}
