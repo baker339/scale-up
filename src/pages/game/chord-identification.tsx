@@ -80,14 +80,19 @@ export default function ChordIdentification() {
 
     useEffect(() => {
         generateChord();
-    }, []);
+    }, [generateChord]);
 
     // ✅ Fix: Ensure canvas does not overflow the white container
     const renderChord = (chord: Chord, clef: string) => {
         const div = document.getElementById('notation');
-        if (div) div.innerHTML = '';
 
-        const renderer = new Vex.Flow.Renderer(div, Vex.Flow.Renderer.Backends.SVG);
+        // ✅ Fix: Ensure `div` is valid before using it
+        if (!div) return;
+
+        div.innerHTML = '';
+
+        // ✅ Fix: Cast `div` as an HTML element (TypeScript safety)
+        const renderer = new Vex.Flow.Renderer(div as HTMLDivElement, Vex.Flow.Renderer.Backends.SVG);
 
         // Adjust canvas height based on lowest note
         const lowestNote = chord.notes[0];
